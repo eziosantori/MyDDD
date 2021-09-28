@@ -1,6 +1,6 @@
 using System;
 
-namespace MyDDD.API
+namespace MyDDD.API.Models
 {
   public class WeatherForecast
   {
