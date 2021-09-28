@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDDD.API", "MyDDD.API\MyDDD.API.csproj", "{66253840-3F20-42BF-8BF1-1F812CB0F6E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{B1247715-8720-434F-80C1-27A3CF7871FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66253840-3F20-42BF-8BF1-1F812CB0F6E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66253840-3F20-42BF-8BF1-1F812CB0F6E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66253840-3F20-42BF-8BF1-1F812CB0F6E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66253840-3F20-42BF-8BF1-1F812CB0F6E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0B722B9-DCDB-4910-9ED8-35F418C0B115}
+	EndGlobalSection
+EndGlobal
