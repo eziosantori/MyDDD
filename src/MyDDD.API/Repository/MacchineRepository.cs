@@ -31,5 +31,15 @@ namespace MyDDD.API.Repository
      
       // throw new NotImplementedException();
     }
+
+    public async Task Update(Macchina macchina)
+    {
+      var sqlQuery = @"UPDATE Macchine SET 
+        antenato=@antenato, idUo=@idUo, icona=@icona, nome=@nome, categoria=@categoria, Matricola=@Matricola WHERE Id=@Id";
+      using (var connection = _connectionProvider.GetConnection())
+      {
+        await connection.ExecuteAsync(sqlQuery, macchina);
+      }
+    }
   }
 }

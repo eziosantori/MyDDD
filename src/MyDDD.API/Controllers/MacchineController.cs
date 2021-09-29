@@ -35,5 +35,12 @@ namespace MyDDD.API.Controllers
     {
       return await _repoMacchine.GetAll();
     }
+    [HttpPut]
+    [Route("{id}")]
+    public async Task Put([FromRoute]int id, [FromBody] Macchina body)
+    {
+      // await _repoMacchine.GetA();
+      await _repoMacchine.Update(body);
+    }
   }
 }
