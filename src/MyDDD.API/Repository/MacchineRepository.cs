@@ -12,34 +12,36 @@ namespace MyDDD.API.Repository
 {
   public class MacchineRepository : IMacchineRepository
   {
-    private readonly IConnectionProvider _connectionProvider;
+    private readonly IUnitOfWork uow;
     public MacchineRepository(
-      IConfiguration configuration, 
-      IConnectionProvider connectionProvider)
+      IUnitOfWork unitOfWork)
     {
-      _connectionProvider = connectionProvider;
+      uow = unitOfWork;
     }
     public async Task<IEnumerable<Macchina>> GetAll()
     {
-
         var sqlQuery = "SELECT top 10 id, antenato, idUo, icona, nome, categoria, notes, Matricola FROM Macchine";
-
-        using (var connection = _connectionProvider.GetConnection())
-        {
-          return await connection.QueryAsync<Models.Macchina>(sqlQuery);
-        }
+        return await uow.QueryAsync<Macchina>(sqlQuery);
+        
      
       // throw new NotImplementedException();
     }
-
-    public async Task Update(Macchina macchina)
+    public async Task<Macchina> GetById(int Id)
     {
-      var sqlQuery = @"UPDATE Macchine SET 
-        antenato=@antenato, idUo=@idUo, icona=@icona, nome=@nome, categoria=@categoria, Matricola=@Matricola WHERE Id=@Id";
-      using (var connection = _connectionProvider.GetConnection())
-      {
-        await connection.ExecuteAsync(sqlQuery, macchina);
-      }
+      var sqlQuery = "SELECT id, antenato, idUo, icona, nome, categoria, notes, Matricola FROM Macchine WHERE Id=@Id";
+      return  await uow.QuerySingleOrDefaultAsync<Macchina>(sqlQuery, new { 
+        Id
+      });
+
+
+      // throw new NotImplementedException();
+    }
+
+    public async Task<int> Update(Macchina macchina)
+    {
+        var sqlQuery = @"UPDATE Macchine SET 
+        antenato=@antenato, idUo=@idUo, icona=@icona, nome=@nome, notes=@notes, categoria=@categoria, Matricola=@Matricola WHERE Id=@id";
+        return await uow.ExecuteAsync(sqlQuery, macchina);    
     }
   }
 }
