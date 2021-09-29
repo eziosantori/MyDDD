@@ -8,8 +8,9 @@ namespace MyDDD.API.Repository
 {
   public interface IMacchineRepository
   {
-    Task<IEnumerable<Models.Macchina>> GetAll();
-    Task Update(Macchina macchina);
+    Task<IEnumerable<Macchina>> GetAll();
+    Task<Macchina> GetById(int Id);
+    Task<int> Update(Macchina macchina);
     
   }
 }

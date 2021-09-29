@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MyDDD.API.Core;
 using MyDDD.API.Models;
 using MyDDD.API.Repository;
 using System;
@@ -19,14 +20,17 @@ namespace MyDDD.API.Controllers
         };
 
     private readonly ILogger<MacchineController> _logger;
+    private readonly IUnitOfWork _unitofWork;
     private readonly IMacchineRepository _repoMacchine;
 
     public MacchineController(
       ILogger<MacchineController> logger,
+      IUnitOfWork unitofWork,
       IMacchineRepository repoMacchine
       )
     {
       _logger = logger;
+      _unitofWork = unitofWork;
       _repoMacchine = repoMacchine;
     }
 
@@ -35,12 +39,29 @@ namespace MyDDD.API.Controllers
     {
       return await _repoMacchine.GetAll();
     }
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<Macchina> GetById(int id)
+    {
+      return await _repoMacchine.GetById(id);
+    }
     [HttpPut]
     [Route("{id}")]
-    public async Task Put([FromRoute]int id, [FromBody] Macchina body)
+    public async Task<int> Put([FromRoute]int id, [FromBody] Macchina body)
     {
+       // simuliamo transazione
+      _unitofWork.BeginTran();
+      var macchina = await _repoMacchine.GetById(id);
+
+      macchina.notes = body.notes;
+      macchina.Matricola = body.Matricola;
       // await _repoMacchine.GetA();
-      await _repoMacchine.Update(body);
+      var esito = await _repoMacchine.Update(macchina);
+
+      _unitofWork.Commit();
+
+      var res = await _repoMacchine.GetById(id);
+      return esito;
     }
   }
 }
