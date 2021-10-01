@@ -1,18 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using MyDDD.API.Core;
 using MyDDD.API.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MyDDD.Domain.Core;
+using MyDDD.Domain.Macchine.Repository;
+using MyDDD.Infrastucture.Domain;
 
 namespace MyDDD.API
 {
@@ -28,8 +23,10 @@ namespace MyDDD.API
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      // todo... finire in unautofac buyilder
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddScoped<IMacchineRepository, MacchineRepository>();
+
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {

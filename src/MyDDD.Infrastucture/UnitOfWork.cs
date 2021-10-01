@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using MyDDD.Domain.Core;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyDDD.API.Core
+namespace MyDDD.Infrastucture.Domain
 {
   public class UnitOfWork : IUnitOfWork
   {

@@ -1,4 +1,4 @@
-﻿namespace MyDDD.API.Core
+﻿namespace MyDDD.Domain.Core
 {
   public enum DbProvider
   {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace MyDDD.API.Core
+namespace MyDDD.Domain.Core
 {
   public interface IUnitOfWork: IDisposable
   {
