@@ -4,6 +4,7 @@ using MyDDD.API.Repository;
 using MyDDD.Domain.Core;
 using MyDDD.Domain.Macchine.Repository;
 using MyDDD.Infrastucture.Domain;
+using MyDDD.Infrastucture.Modules;
 
 namespace MyDDD.Infrastucture
 {
@@ -17,14 +18,8 @@ namespace MyDDD.Infrastucture
     protected override void Load(ContainerBuilder builder)
     {
 
-      builder.RegisterType<UnitOfWork>()
-          .As<IUnitOfWork>()
-          .WithParameter("configuration", _configuration)
-          .InstancePerLifetimeScope();
-
-      builder.RegisterType<MacchineRepository>()
-          .As<IMacchineRepository>()
-          .InstancePerLifetimeScope();
+        builder.RegisterModule(new DataAccessModule(_configuration));
+        builder.RegisterModule(new MediatorModule());
     }
   }
 }

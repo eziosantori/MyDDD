@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MyDDD.Application.Macchine.UpdateNote;
 using MyDDD.Domain.Core;
 using MyDDD.Domain.Macchine;
 using MyDDD.Domain.Macchine.Repository;
@@ -20,16 +22,20 @@ namespace MyDDD.API.Controllers
     private readonly ILogger<MacchineController> _logger;
     private readonly IUnitOfWork _unitofWork;
     private readonly IMacchineRepository _repoMacchine;
+    private readonly IMediator _mediator;
+
 
     public MacchineController(
       ILogger<MacchineController> logger,
       IUnitOfWork unitofWork,
-      IMacchineRepository repoMacchine
+      IMacchineRepository repoMacchine,
+      IMediator mediator
       )
     {
       _logger = logger;
       _unitofWork = unitofWork;
       _repoMacchine = repoMacchine;
+      this._mediator = mediator;
     }
 
     [HttpGet]
@@ -47,19 +53,21 @@ namespace MyDDD.API.Controllers
     [Route("{id}")]
     public async Task<int> Put([FromRoute]int id, [FromBody] Macchina body)
     {
-       // simuliamo transazione
-      _unitofWork.BeginTran();
-      var macchina = await _repoMacchine.GetById(id);
+      // simuliamo transazione
+      //_unitofWork.BeginTran();
+      //var macchina = await _repoMacchine.GetById(id);
 
-      macchina.notes = body.notes;
-      macchina.Matricola = body.Matricola;
-      // await _repoMacchine.GetA();
-      var esito = await _repoMacchine.Update(macchina);
+      //macchina.notes = body.notes;
+      //macchina.Matricola = body.Matricola;
+      //// await _repoMacchine.GetA();
+      //var esito = await _repoMacchine.Update(macchina);
 
-      _unitofWork.Commit();
+      //_unitofWork.Commit();
 
-      var res = await _repoMacchine.GetById(id);
-      return esito;
+      //var res = await _repoMacchine.GetById(id);
+      //return esito;
+      return await _mediator.Send(new UpdateNoteCommand(body.id,body.notes));
+
     }
   }
 }
