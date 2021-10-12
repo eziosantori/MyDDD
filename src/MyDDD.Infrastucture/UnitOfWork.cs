@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using MyDDD.Domain.Core;
+using MyDDD.Domain.Core.SeedWork;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ namespace MyDDD.Infrastucture.Domain
     private readonly string _connectionString;
     private readonly DbProvider _provider;
     private IDbConnection _connection;
-    private IDbTransaction _transaction;
     public UnitOfWork(IConfiguration configuration)
     {
       _connectionString = configuration.GetConnectionString("Default");
@@ -33,18 +33,10 @@ namespace MyDDD.Infrastucture.Domain
       return new SqlConnection(_connectionString);
     }
     public IDbConnection Connection { get => _connection; }
-    public IDbTransaction Transaction { get => _transaction; }
-    public void BeginTran()
-    {
-      _transaction = _connection?.BeginTransaction();
+
+    public void Commit() {
+      // todo something
     }
-  
-    public void Commit()
-          => _transaction?.Commit();
-
-    public void Rollback()
-      => _transaction?.Rollback();
-
     public void Dispose()
     {
       Dispose(true);
@@ -59,28 +51,28 @@ namespace MyDDD.Infrastucture.Domain
 
       if (disposing)
       {
-        _transaction?.Dispose();
         _connection?.Dispose();
       }
 
-      _transaction = null;
       _connection = null;
 
     }
     public Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null)
     {
-      return _connection.QueryAsync<T>(sql, param, _transaction);
+      return _connection.QueryAsync<T>(sql, param);
     }
     public Task<int> ExecuteAsync(string sql, object param = null)
     {
-      return _connection.ExecuteAsync(sql, param, _transaction);
+      return _connection.ExecuteAsync(sql, param);
 
     }
 
     public Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null)
     {
-      return _connection.QuerySingleOrDefaultAsync<T>(sql, param, _transaction);
+      return _connection.QuerySingleOrDefaultAsync<T>(sql, param);
 
     }
+
+
   }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyDDD.Domain.Core.SeedWork;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -11,7 +12,6 @@ namespace MyDDD.Domain.Core
     /// Torana una connessione già aperta
     /// </summary>
     IDbConnection Connection { get; }
-    IDbTransaction Transaction { get; }
     /// <summary>
     /// Wrapper del metodo di Dapper
     /// </summary>
@@ -22,8 +22,10 @@ namespace MyDDD.Domain.Core
     Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null);
     Task<int> ExecuteAsync(string sql, object param = null);
     Task<T> QuerySingleOrDefaultAsync<T>(string sql, object param = null);
-    void BeginTran();
     void Commit();
-    void Rollback();
+
+
+
+
   }
 }

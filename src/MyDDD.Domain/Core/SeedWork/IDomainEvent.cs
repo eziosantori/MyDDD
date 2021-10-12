@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using System;
 
-namespace MyDDD.Domain.Core
+namespace MyDDD.Domain.Core.SeedWork
 {
   public interface IDomainEvent : INotification
-  {
-    DateTime OccurredOn { get; }
-  }
+    {
+      DateTime OccurredOn { get; }
+    }
+
 }

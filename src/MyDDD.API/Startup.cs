@@ -55,6 +55,8 @@ namespace MyDDD.API
       // can use the convenience extension method GetAutofacRoot.
       this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
+    // AUTH JWT
+    // https://www.c-sharpcorner.com/article/asp-net-web-api-2-creating-and-validating-jwt-json-web-token/
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();

@@ -10,5 +10,6 @@ namespace MyDDD.Domain.Manutenzioni
     Task<IEnumerable<Manutenzione>> GetAll();
     Task<Manutenzione> GetById(int Id);
     Task<int> Update(Manutenzione item);
+    Task<int> AssociaManutenzione(int idMacchina, int idManutenzione);
   }
 }

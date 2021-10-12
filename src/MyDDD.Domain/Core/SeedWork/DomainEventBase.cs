@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyDDD.Domain.Core
+namespace MyDDD.Domain.Core.SeedWork
 {
   public class DomainEventBase : IDomainEvent
   {
@@ -15,4 +15,5 @@ namespace MyDDD.Domain.Core
 
     public DateTime OccurredOn { get; }
   }
+
 }
